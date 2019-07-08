@@ -16,13 +16,12 @@ public class GameManager extends GestureDetector.SimpleOnGestureListener {
     private Player player;
     private Maze maze;
     public Rect rect = new Rect();
-     public int screenSize;
+    public int screenSize;
 
 
     public GameManager(){
         create(15);
     }
-
     private void create(int size) {
         drawables.clear();
         maze = new Maze(size);
