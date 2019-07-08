@@ -1,9 +1,7 @@
 package com.simon.maze;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,19 +12,25 @@ import java.util.List;
 public class GameManager extends GestureDetector.SimpleOnGestureListener {
     private List<Drawable> drawables = new ArrayList<>();
     private View view;
+    private Exit exit;
     private Player player;
     private Maze maze;
     public Rect rect = new Rect();
-    public int size = 15;
+     public int screenSize;
 
 
     public GameManager(){
+        create(15);
+    }
+
+    private void create(int size) {
+        drawables.clear();
         maze = new Maze(size);
-        player = new Player(maze.getStart(), size);
-
         drawables.add(maze);
+        exit = new Exit(size, maze.getEnd());
+        drawables.add(exit);
+        player = new Player(maze.getStart(), size);
         drawables.add(player);
-
 
     }
 
@@ -64,6 +68,11 @@ public class GameManager extends GestureDetector.SimpleOnGestureListener {
         }
         player.goTo(stepX, stepY);
 
+        if(exit.getPoint(). equals(player.getPoint())){
+            create(maze.getSize() + 5);
+
+        }
+
         view.invalidate();
         return super.onFling(e1, e2, velocityX, velocityY);
     }
@@ -76,12 +85,12 @@ public class GameManager extends GestureDetector.SimpleOnGestureListener {
     public void setView(View view) { this.view = view;
     }
     public void setScreenSize(int width, int height) {
-        size = Math.min(width, height);
+        screenSize = Math.min(width, height);
         rect.set(
-                (width - size) / 2,
-                (height - size) / 2,
-                (width + size) / 2,
-                (height + size) / 2
+                (width - screenSize) / 2,
+                (height - screenSize) / 2,
+                (width + screenSize) / 2,
+                (height + screenSize) / 2
         );
 
     }

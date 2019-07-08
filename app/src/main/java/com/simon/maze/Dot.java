@@ -15,6 +15,9 @@ public class Dot implements Drawable  {
         this.point = point;
         this.paint = paint;
     }
+    public Point getPoint() {
+        return point;
+    }
 
     @Override
     public void draw(Canvas canvas, Rect rect) {

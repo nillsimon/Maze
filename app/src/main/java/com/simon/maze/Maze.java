@@ -15,8 +15,12 @@ import java.util.Stack;
 public class Maze implements Drawable {
     private Paint wallPaint;
     private final boolean[][]array;
-    private final int size;
 
+    public int getSize() {
+        return size;
+    }
+
+    private final int size;
     public Point getEnd() {
         return end;
     }
